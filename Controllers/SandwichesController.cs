@@ -13,6 +13,8 @@ public class SandwichesController : ControllerBase // extends BaseController
   {
     _sandwichesService = sandwichesService;
   }
+  // NOTE private denotes that only members of Class have access to this property (cannot directly call sandwichesController._sandwichesService)
+  // NOTE readonly makes this property immutable
   private readonly SandwichesService _sandwichesService;
 
 

@@ -38,6 +38,7 @@ public class SandwichesService
 
   internal string DeleteSandwich(int sandwichId)
   {
+    // Sandwich sandwich = this.GetSandwichById(sandwichId); code below works the same
     Sandwich sandwich = GetSandwichById(sandwichId); // performs null check before firing off delete
 
     _sandwichesRepository.DeleteSandwich(sandwichId); // no need to return any information from the service
