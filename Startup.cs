@@ -36,6 +36,8 @@ public class Startup
 
     // This allows any object that needs a sandwichesservice to be handed one by this class
     services.AddScoped<SandwichesService>();
+    // This allows any object that needs a sandwichesrepository to be handed one by this class
+    services.AddScoped<SandwichesRepository>();
   }
 
   private void ConfigureCors(IServiceCollection services)
