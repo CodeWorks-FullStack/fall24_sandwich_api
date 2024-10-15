@@ -34,9 +34,9 @@ public class Startup
     services.AddScoped<AccountsRepository>();
     services.AddScoped<AccountService>();
 
-    // This allows any object that needs a sandwichesservice to be handed one by this class
+    // This allows any object that needs access to a SandwichesService object to be passed one by this class
     services.AddScoped<SandwichesService>();
-    // This allows any object that needs a sandwichesrepository to be handed one by this class
+    // This allows any object that needs access to a SandwichesRepository object to be passed one by this class
     services.AddScoped<SandwichesRepository>();
   }
 
