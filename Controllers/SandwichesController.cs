@@ -32,7 +32,7 @@ public class SandwichesController : ControllerBase // extends BaseController
       // NOTE Ok returns a 200 response with the passed argument as the response body
       return Ok(sandwiches);
     }
-    catch (System.Exception error)
+    catch (Exception error)
     {
       // NOTE BadRequest returns a 400 reponse with the provided error message
       return BadRequest(error.Message);
@@ -48,7 +48,7 @@ public class SandwichesController : ControllerBase // extends BaseController
       Sandwich sandwich = _sandwichesService.GetSandwichById(sandwichId);
       return Ok(sandwich);
     }
-    catch (System.Exception error)
+    catch (Exception error)
     {
       return BadRequest(error.Message);
     }
@@ -61,6 +61,20 @@ public class SandwichesController : ControllerBase // extends BaseController
     {
       Sandwich sandwich = _sandwichesService.CreateSandwich(sandwichData);
       return Ok(sandwich);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpDelete("{sandwichId}")] // .delete('/:sandwichId', this.deleteSandwich)
+  public ActionResult<string> DeleteSandwich(int sandwichId)
+  {
+    try
+    {
+      string message = _sandwichesService.DeleteSandwich(sandwichId);
+      return Ok(message);
     }
     catch (Exception exception)
     {

@@ -35,4 +35,13 @@ public class SandwichesService
     Sandwich sandwich = _sandwichesRepository.CreateSandwich(sandwichData);
     return sandwich;
   }
+
+  internal string DeleteSandwich(int sandwichId)
+  {
+    Sandwich sandwich = GetSandwichById(sandwichId); // performs null check before firing off delete
+
+    _sandwichesRepository.DeleteSandwich(sandwichId); // no need to return any information from the service
+
+    return $"{sandwich.Name} has been deleted!";
+  }
 }

@@ -1,3 +1,4 @@
+
 namespace sandwich_api.Repositories;
 
 // NOTE all database logic should take place in the repository level
@@ -29,6 +30,7 @@ public class SandwichesRepository
   {
     // NOTE the @ sign signifies that Dapper will be passed an object with a matching key of sandwichId. Dapper will pull the value out at this key and SAFELY insert it into the SQL statement for us.
     string sql = "SELECT * FROM sandwiches WHERE id = @sandwichId;";
+
     // NOTE new {} creates an anonymous object (object with any type).
     // NOTE new {sandwichId} creates an object structured like: { sandwichId: 7 }
     // NOTE FirstOrDefault returns the first element from a collection or null if no elements are present
@@ -50,5 +52,22 @@ public class SandwichesRepository
 
     Sandwich sandwich = _db.Query<Sandwich>(sql, sandwichData).FirstOrDefault();
     return sandwich;
+  }
+
+  internal void DeleteSandwich(int sandwichId)
+  {
+    string sql = "DELETE FROM sandwiches WHERE id = @sandwichId LIMIT 1;";
+
+    int affectedRows = _db.Execute(sql, new { sandwichId });
+
+    if (affectedRows == 0)
+    {
+      throw new Exception("No sandwiches were deleted, delete failed");
+    }
+
+    if (affectedRows > 1)
+    {
+      throw new Exception("More than one sandwich was deleted, that is not good");
+    }
   }
 }
