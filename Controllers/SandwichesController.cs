@@ -5,6 +5,14 @@ namespace sandwich_api.Controllers;
 [Route("api/sandwiches")] // super('api/sandwiches')
 public class SandwichesController : ControllerBase // extends BaseController
 {
+  // constructor
+  public SandwichesController(SandwichesService sandwichesService)
+  {
+    _sandwichesService = sandwichesService;
+  }
+  private readonly SandwichesService _sandwichesService;
+
+
   [HttpGet("test")] // .get('/test', this.testGet)
   public string TestGet()
   {
@@ -17,7 +25,7 @@ public class SandwichesController : ControllerBase // extends BaseController
   {
     try
     {
-      List<Sandwich> sandwiches = [];
+      List<Sandwich> sandwiches = _sandwichesService.GetSandwiches();
       return Ok(sandwiches);
     }
     catch (System.Exception error)

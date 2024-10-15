@@ -33,6 +33,9 @@ public class Startup
 
     services.AddScoped<AccountsRepository>();
     services.AddScoped<AccountService>();
+
+    // This allows any object that needs a sandwichesservice to be handed one by this class
+    services.AddScoped<SandwichesService>();
   }
 
   private void ConfigureCors(IServiceCollection services)
