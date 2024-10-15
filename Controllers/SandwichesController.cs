@@ -6,6 +6,9 @@ namespace sandwich_api.Controllers;
 public class SandwichesController : ControllerBase // extends BaseController
 {
   // constructor
+  // Startup.cs will pass a service object through the constructor of this class
+  // Do not forget to register any dependencies in Startup.cs
+  // Dependency injection
   public SandwichesController(SandwichesService sandwichesService)
   {
     _sandwichesService = sandwichesService;
@@ -31,6 +34,35 @@ public class SandwichesController : ControllerBase // extends BaseController
     catch (System.Exception error)
     {
       return BadRequest(error.Message);
+    }
+
+  }
+
+  [HttpGet("{sandwichId}")] // .get(/:sandwichId, getById)
+  public ActionResult<Sandwich> GetSandwichById(int sandwichId) // req.params.sandwichId
+  {
+    try
+    {
+      Sandwich sandwich = _sandwichesService.GetSandwichById(sandwichId);
+      return Ok(sandwich);
+    }
+    catch (System.Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
+
+  [HttpPost]
+  public ActionResult<Sandwich> CreateSandwich([FromBody] Sandwich sandwichData) // req.body
+  {
+    try
+    {
+      Sandwich sandwich = _sandwichesService.CreateSandwich(sandwichData);
+      return Ok(sandwich);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
     }
   }
 }
