@@ -6,9 +6,9 @@ namespace sandwich_api.Controllers;
 public class SandwichesController : ControllerBase // extends BaseController
 {
   // constructor
+  // Dependency injection 💉
   // Startup.cs will pass a service object through the constructor of this class
   // Do not forget to register any dependencies in Startup.cs
-  // Dependency injection
   public SandwichesController(SandwichesService sandwichesService)
   {
     _sandwichesService = sandwichesService;
@@ -23,22 +23,24 @@ public class SandwichesController : ControllerBase // extends BaseController
   }
 
   // ActionResult type is an HTTP response type
-  [HttpGet]
+  [HttpGet] // .get('', this.getSandwiches)
   public ActionResult<List<Sandwich>> GetSandwiches()
   {
     try
     {
       List<Sandwich> sandwiches = _sandwichesService.GetSandwiches();
+      // NOTE Ok returns a 200 response with the passed argument as the response body
       return Ok(sandwiches);
     }
     catch (System.Exception error)
     {
+      // NOTE BadRequest returns a 400 reponse with the provided error message
       return BadRequest(error.Message);
     }
 
   }
 
-  [HttpGet("{sandwichId}")] // .get(/:sandwichId, getById)
+  [HttpGet("{sandwichId}")] // .get('/:sandwichId', this.getById)
   public ActionResult<Sandwich> GetSandwichById(int sandwichId) // req.params.sandwichId
   {
     try
@@ -52,7 +54,7 @@ public class SandwichesController : ControllerBase // extends BaseController
     }
   }
 
-  [HttpPost]
+  [HttpPost] // .post('', this.createSandwich)
   public ActionResult<Sandwich> CreateSandwich([FromBody] Sandwich sandwichData) // req.body
   {
     try
